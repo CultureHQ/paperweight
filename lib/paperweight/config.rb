@@ -9,7 +9,7 @@ module Paperweight
 
   class << self
     def config
-      @config ||= new
+      @config ||= Config.new
     end
 
     def configure

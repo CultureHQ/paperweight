@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/CultureHQ/paperweight.svg?branch=master)](https://travis-ci.com/CultureHQ/paperweight)
 
-An opinionated Paperclip.
+An opinionated Paperclip. Works only for the direct image upload to S3 -> send image URL to server -> process thumbnails using ActiveJob workflow.
 
 ## Installation
 
@@ -22,7 +22,24 @@ Or install it yourself as:
 
 ## Usage
 
+First, configure `paperweight` in an initializer, e.g., `config/initializers/paperweight.rb`:
 
+```ruby
+Paperweight.configure do |config|
+  # your asset server (preferably a CDN)
+  config.asset_server = 'https://uploads.culturehq.com'
+
+  # the S3 bucket to which to uploads images
+  config.bucket = 'culturehq-uploads'
+
+  # the AWS credentials used with permission to S3
+  config.credentials = {
+    access_key_id: Rails.application.credentials.aws_access_key_id,
+    secret_access_key: Rails.application.credentials.aws_secret_access_key,
+    region: 'us-west-2'
+  }
+end
+```
 
 ## Development
 

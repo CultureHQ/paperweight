@@ -55,16 +55,16 @@ module Paperweight
       end
     end
 
-    # Provides the `has_paperweight` method to attach to models.
+    # Provides the `has_image` method to attach to models.
     module Hook
-      def has_paperweight(styles) # rubocop:disable Naming/PredicateName
-        extend DynamicExtension.new(styles)
+      def has_image(styles = {}) # rubocop:disable Naming/PredicateName
+        extend DynamicExtension.new({ original: '' }.merge!(styles))
         include StaticExtension
       end
     end
 
-    initializer 'paperclip.hook' do
-      ActiveSupport.on_load(:active_record) { include Hook }
+    initializer 'paperweight' do
+      ActiveSupport.on_load(:active_record) { extend Hook }
     end
   end
 end
