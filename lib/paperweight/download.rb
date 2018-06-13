@@ -13,7 +13,7 @@ module Paperweight
       Error                 # our errors
     ].freeze
 
-    MAX_SIZE = 10.megabytes
+    MAX_SIZE = 10 * 1024 * 1024
 
     def download(url)
       # Finally we download the file. Here we mustn't use simple #open that

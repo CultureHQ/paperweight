@@ -1,5 +1,7 @@
 # Paperweight
 
+[![Build Status](https://travis-ci.com/CultureHQ/paperweight.svg?branch=master)](https://travis-ci.com/CultureHQ/paperweight)
+
 An opinionated Paperclip.
 
 ## Installation

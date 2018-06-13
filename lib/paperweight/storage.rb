@@ -27,7 +27,13 @@ module Paperweight
     end
 
     # A storage adapter for a local filesystem.
-    class Local < TinyStruct.new(:root)
+    class Local
+      attr_reader :root
+
+      def initialize(root)
+        @root = root
+      end
+
       def delete(key)
         FileUtils.rm(File.join(root, key))
       end
