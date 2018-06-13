@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
 module Paperweight
-  class Image < TinyStruct.new(:model)
+  # The image object attached to the model.
+  class Image
+    attr_reader :model
+
+    def initialize(model)
+      @model = model
+    end
+
     def as_json(*)
       serialized_styles_for(model).merge!(
         is_default: model.image? ? false : true, # legacy

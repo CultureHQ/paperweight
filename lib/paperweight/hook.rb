@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 module Paperweight
+  # Provides the `has_paperweight` method to attach to models.
   module Hook
+    # Extensions that need be generated from input.
     class DynamicExtension < Module
       def initialize(styles)
         define_method(:image_styles) { styles }
       end
     end
 
+    # Extensions that are the same for each kind of attachment.
     module StaticExtension
       def clear_image_url
         @image_url = nil

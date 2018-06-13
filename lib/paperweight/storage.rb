@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module Paperweight
+  # Handles putting and deleting files from different kinds of storage.
   module Storage
+    # A storage adapter for Amazon AWS S3.
     class Remote
       attr_reader :client
 
@@ -24,6 +26,7 @@ module Paperweight
       end
     end
 
+    # A storage adapter for a local filesystem.
     class Local < TinyStruct.new(:root)
       def delete(key)
         FileUtils.rm(File.join(root, key))

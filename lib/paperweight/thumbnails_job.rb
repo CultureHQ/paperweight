@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Paperweight
+  # Queues thumbnails for processing.
   class ThumbnailsJob < ActiveJob::Base
     queue_as :default
 

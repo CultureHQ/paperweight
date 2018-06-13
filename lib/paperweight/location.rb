@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Paperweight
+  # The location of the attachment in terms of paths are URLs.
   class Location
     attr_reader :model, :style
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Paperweight
+  # Removes all previous image files matching the given pattern.
   class PurgeJob < ActiveJob::Base
     PLACEHOLDER = ':style'
 
