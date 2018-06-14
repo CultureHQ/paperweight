@@ -15,7 +15,7 @@ module Paperweight
     end
 
     def url
-      "#{self.class.prefix}/#{path}"
+      "#{self.class.prefix}/uploads/#{path}"
     end
 
     def default_url
@@ -27,7 +27,7 @@ module Paperweight
         if Rails.env.production?
           Paperweight.config.asset_server
         else
-          'http://localhost:3000/uploads'
+          'http://localhost:3000'
         end
     end
 
