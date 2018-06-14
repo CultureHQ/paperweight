@@ -62,7 +62,7 @@ class RailtieTest < ActiveSupport::TestCase
 
   def test_before_destroy
     post = Post.first
-    files = -> { Dir[File.join('tmp', 'uploads', '**', '*')].size }
+    files = -> { Dir[File.join('tmp', 'paperweight', '**', '*')].size }
 
     with_file_server do |address|
       assert_no_difference files do

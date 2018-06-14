@@ -37,7 +37,7 @@ class ImageTest < ActiveSupport::TestCase
     serialized = post.image.as_json
 
     assert serialized[:is_default]
-    assert_styles_include serialized, 'assets'
+    assert_styles_include serialized, 'paperweight'
   end
 
   def assert_non_default(post)

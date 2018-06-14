@@ -58,7 +58,7 @@ module Paperweight
       private
 
       def local_for(directory)
-        Local.new(Rails.root.join(directory, 'uploads').to_s.freeze)
+        Local.new(Rails.root.join(directory, 'paperweight').to_s.freeze)
       end
     end
   end

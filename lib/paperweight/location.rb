@@ -15,11 +15,11 @@ module Paperweight
     end
 
     def url
-      "#{self.class.prefix}/uploads/#{path}"
+      "#{self.class.prefix}/#{path}"
     end
 
     def default_url
-      "#{self.class.prefix}/assets/#{table_name}/#{style}.gif"
+      "#{self.class.prefix}/#{table_name}/#{style}.gif"
     end
 
     def self.prefix
@@ -27,7 +27,7 @@ module Paperweight
         if Rails.env.production?
           Paperweight.config.asset_server
         else
-          'http://localhost:3000'
+          'http://localhost:3000/paperweight'
         end
     end
 
