@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/CultureHQ/paperweight.svg?branch=master)](https://travis-ci.com/CultureHQ/paperweight)
 
-An opinionated Paperclip. Works only for the direct image upload to S3 -> send image URL to server -> process thumbnails using ActiveJob workflow.
+An opinionated Paperclip for a specific workflow. Only accepts image URLs instead of uploaded files. The image URLs are then queued for downloading, converting, and generating thumbnails in the background using `ActiveJob`.
 
 ## Installation
 
@@ -38,6 +38,48 @@ Paperweight.configure do |config|
     secret_access_key: Rails.application.credentials.aws_secret_access_key,
     region: 'us-west-2'
   }
+end
+```
+
+Then, create and run a migration to add the `image_uuid` and `image_processing` columns to your model:
+
+```ruby
+class AddImageToPost < ActiveRecord::Migration[5.2]
+  def change
+    add_column :posts, :image_uuid, :string
+    add_column :posts, :image_processing, :boolean, default: false, null: false
+  end
+end
+```
+
+Next, add the class macro to the model:
+
+```ruby
+class Post < ApplicationRecord
+  has_image thumb: '100x100>'
+end
+```
+
+Finally, add the ability to update the `image_url` attribute from the controller:
+
+```ruby
+class PostsController < ApplicationController
+  # PUT|PATCH /posts/:id
+  def update
+    post = Post.find(params[:id])
+
+    if post.update(post_params)
+      render json: post
+    else
+      render error: post.error, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def post_params
+    params.permit(:image_url)
+  end
 end
 ```
 
