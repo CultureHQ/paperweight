@@ -35,23 +35,23 @@ class ImageTest < ActiveSupport::TestCase
 
   def assert_default(post)
     serialized = post.image.as_json
+
     assert serialized[:is_default]
-
-    style_keys = serialized.keys.grep(/_url/)
-    assert_equal Post.image_styles.size, style_keys.size
-
-    urls = serialized.values_at(*style_keys)
-    assert urls.all? { |url| url.include?('assets') }
+    assert_styles_include serialized, 'assets'
   end
 
   def assert_non_default(post)
     serialized = post.image.as_json
-    refute serialized[:is_default]
 
+    refute serialized[:is_default]
+    assert_styles_include serialized, post.image_uuid
+  end
+
+  def assert_styles_include(serialized, needle)
     style_keys = serialized.keys.grep(/_url/)
     assert_equal Post.image_styles.size, style_keys.size
 
     urls = serialized.values_at(*style_keys)
-    assert urls.all? { |url| url.include?(post.image_uuid) }
+    assert(urls.all? { |url| url.include?(needle) })
   end
 end

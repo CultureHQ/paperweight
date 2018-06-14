@@ -7,6 +7,7 @@ module Paperweight
     attr_accessor :asset_server, :bucket, :credentials
 
     def initialize
+      @bucket = ''
       @credentials = { region: 'us-east-1' }
     end
   end
