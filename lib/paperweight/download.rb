@@ -43,19 +43,18 @@ module Paperweight
     # open-uri will return a StringIO instead of a Tempfile if the filesize
     # is less than 10 KB, so we patch this behaviour by converting it into a
     # Tempfile.
-    def normalize_download(downloaded_file)
-      return downloaded_file unless downloaded_file.is_a?(StringIO)
+    def normalize_download(file)
+      return file unless file.is_a?(StringIO)
 
       # We need to open it in binary mode for Windows users.
-      tempfile = Tempfile.new('download-', binmode: true)
+      Tempfile.new('download-', binmode: true).tap do |tempfile|
+        # IO.copy_stream is the most efficient way of data transfer.
+        IO.copy_stream(file, tempfile.path)
 
-      # IO.copy_stream is the most efficient way of data transfer.
-      IO.copy_stream(downloaded_file, tempfile.path)
-      downloaded_file = tempfile
-
-      # We add the metadata that open-uri puts on the file
-      # (e.g. #content_type)
-      OpenURI::Meta.init(downloaded_file)
+        # We add the metadata that open-uri puts on the file
+        # (e.g. #content_type)
+        OpenURI::Meta.init(tempfile)
+      end
     end
 
     def open_options

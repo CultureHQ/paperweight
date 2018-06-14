@@ -11,7 +11,7 @@ module Paperweight
 
     def as_json(*)
       serialized_styles_for(model).merge!(
-        is_default: model.image? ? false : true, # legacy
+        is_default: model.image? ? false : true,
         processing: model.image_processing?
       )
     end
@@ -31,8 +31,12 @@ module Paperweight
       update_file(Download.download(url))
     end
 
+    def path(style = :original)
+      Location.new(model, style).path
+    end
+
     def url(style = :original)
-      Paperweight::Location.new(model, style).url
+      Location.new(model, style).url
     end
 
     private
@@ -46,7 +50,7 @@ module Paperweight
 
       image_styles.each_key.each_with_object({}) do |style, serialized|
         serialized[:"#{style}_url"] =
-          Paperweight::Location.new(model, style).public_send(url_method)
+          Location.new(model, style).public_send(url_method)
       end
     end
 

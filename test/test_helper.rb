@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+ENV['RAILS_ENV'] = 'test'
+
 require 'simplecov'
 SimpleCov.start
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'paperweight'
-
 require 'minitest/autorun'
-Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 require 'active_record'
 require 'active_job/railtie'
@@ -28,9 +28,10 @@ ActiveRecord::Base.establish_connection(
   database: ':memory:'
 )
 
+Paperclip.logger.level = Logger::FATAL
+
 ActiveRecord::Schema.define do
   create_table :posts, force: true do |t|
-    t.string :title
     t.string :image_uuid
     t.boolean :image_processing, default: false, null: false
     t.timestamps
@@ -39,34 +40,39 @@ end
 
 class Post < ActiveRecord::Base
   has_image thumb: '100x100>', medium: '500x500>'
-
-  create! [{ title: 'One' }, { title: 'Two' }, { title: 'Three' }]
+  create!
 end
 
-module ActiveSupport
-  class TestHelper
-    def with_fixture_server
-      port = 8080
-      server = fixture_server_on(port)
-      thread = Thread.new { server.start }
+module FileServer
+  ROOT = -File.join('test', 'files')
 
-      yield "http://localhost:#{port}"
+  def self.next_port
+    @next_port = (@next_port || 8080) + 1
+  end
 
-      server.stop
-      thread.join
-    end
+  def with_file_server
+    port = FileServer.next_port
+    server = file_server_on(port)
+    thread = Thread.new { server.start }
 
-    private
+    yield "http://localhost:#{port}"
 
-    def fixture_server_on(port)
-      require 'webrick'
+    server.stop
+    thread.join
+  end
 
-      WEBrick::HTTPServer.new(
-        Port: port,
-        DocumentRoot: Rails.root.join('test', 'fixtures', 'files').to_s,
-        Logger: WEBrick::Log.new('/dev/null'),
-        AccessLog: []
-      )
-    end
+  private
+
+  def file_server_on(port)
+    require 'webrick'
+
+    WEBrick::HTTPServer.new(
+      Port: port,
+      DocumentRoot: ROOT,
+      Logger: WEBrick::Log.new('/dev/null'),
+      AccessLog: []
+    )
   end
 end
+
+ActiveSupport::TestCase.include(FileServer)

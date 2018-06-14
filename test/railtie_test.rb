@@ -5,8 +5,6 @@ require 'test_helper'
 class RailtieTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
-  EXAMPLE = 'http://example.com/example.png'
-
   def test_image_styles
     assert_kind_of Hash, Post.image_styles
     assert_equal 3, Post.image_styles.size
@@ -19,8 +17,8 @@ class RailtieTest < ActiveSupport::TestCase
   def test_image_url
     post = Post.first
 
-    post.image_url = EXAMPLE
-    assert_equal EXAMPLE, post.image_url
+    post.image_url = 'example.png'
+    assert_equal 'example.png', post.image_url
 
     assert post.image_processing?
     refute_nil post.image_uuid
@@ -35,7 +33,7 @@ class RailtieTest < ActiveSupport::TestCase
   def test_clear_image_url
     post = Post.first
 
-    post.image_url = EXAMPLE
+    post.image_url = 'example.png'
     post.clear_image_url
 
     assert_nil post.image_url
@@ -46,7 +44,7 @@ class RailtieTest < ActiveSupport::TestCase
     post = Post.first
     refute post.image?
 
-    post.image_uuid = '000-aaa-111-bbb'
+    post.image_uuid = '0000-aaaa-1111-bbbb'
     assert post.image?
   end
 
@@ -54,11 +52,24 @@ class RailtieTest < ActiveSupport::TestCase
     post = Post.first
 
     assert_enqueued_jobs 1 do
-      post.update!(image_url: EXAMPLE)
+      post.update!(image_url: 'example.png')
     end
 
     assert_enqueued_jobs 2 do
-      post.update(image_url: EXAMPLE)
+      post.update(image_url: 'example.png')
+    end
+  end
+
+  def test_before_destroy
+    post = Post.first
+    files = -> { Dir[File.join('tmp', 'uploads', '**', '*')].size }
+
+    with_file_server do |address|
+      assert_no_difference files do
+        image_url = "#{address}/large.png"
+        perform_enqueued_jobs { post.update!(image_url: image_url) }
+        perform_enqueued_jobs { post.destroy }
+      end
     end
   end
 end
