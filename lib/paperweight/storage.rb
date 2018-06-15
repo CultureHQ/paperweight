@@ -17,6 +17,7 @@ module Paperweight
 
       def put(file, key)
         client.put_object(
+          acl: 'public-read',
           bucket: Paperweight.config.bucket,
           key: key,
           content_type: Paperclip::ContentTypeDetector.new(file.path).detect,
