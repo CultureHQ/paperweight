@@ -19,7 +19,7 @@ module Paperweight
     end
 
     def default_url
-      "#{self.class.prefix}/#{table_name}/#{style}.gif"
+      "#{self.class.prefix}/#{table_name}/#{style}.png"
     end
 
     def self.prefix

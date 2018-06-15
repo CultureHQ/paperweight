@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paperweight (0.0.4)
+    paperweight (0.0.5)
       aws-sdk-s3 (~> 1.13)
       paperclip (~> 6.0)
       rails (~> 5.2)
