@@ -11,6 +11,7 @@ require 'minitest/autorun'
 
 require 'active_record'
 require 'active_job/railtie'
+require 'paperclip/railtie'
 require 'rails/test_help'
 
 module Paperweight
@@ -32,14 +33,22 @@ Paperclip.logger.level = Logger::FATAL
 
 ActiveRecord::Schema.define do
   create_table :posts, force: true do |t|
-    t.string :image_uuid
+    t.string :image_file_name
+    t.string :image_content_type
+    t.integer :image_file_size
+    t.datetime :image_updated_at
     t.boolean :image_processing, default: false, null: false
     t.timestamps
   end
 end
 
 class Post < ActiveRecord::Base
-  has_image thumb: '100x100>', medium: '500x500>'
+  has_attached_file :image, styles: {
+    thumb: '100x100>', medium: '500x500>', original: ''
+  }
+  validates_attachment :image, size: { in: 0..10.megabytes },
+                               content_type: { content_type: %r{\Aimage/.*\z} }
+
   create!
 end
 

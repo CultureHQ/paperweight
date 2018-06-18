@@ -25,14 +25,6 @@ class DownloadTest < ActiveSupport::TestCase
     end
   end
 
-  def test_class_download_swallows_errors
-    with_file_server do |address|
-      with_tiny_max_size do
-        assert_nil Paperweight::Download.download("#{address}/large.png")
-      end
-    end
-  end
-
   private
 
   def download(url)

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/CultureHQ/paperweight.svg?branch=master)](https://travis-ci.com/CultureHQ/paperweight)
 
-An opinionated Paperclip for a specific workflow. Only accepts image URLs instead of uploaded files. The image URLs are then queued for downloading, converting, and generating thumbnails in the background using `ActiveJob`.
+Handles `Paperclip` attachments on the backend in a delayed process.
 
 ## Installation
 
@@ -22,45 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-First, configure `paperweight` in an initializer, e.g., `config/initializers/paperweight.rb`:
-
-```ruby
-Paperweight.configure do |config|
-  # your asset server (preferably a CDN)
-  config.asset_server = 'https://uploads.culturehq.com'
-
-  # the S3 bucket to which to uploads images
-  config.bucket = 'culturehq-uploads'
-
-  # the AWS credentials used with permission to S3
-  config.credentials = {
-    access_key_id: Rails.application.credentials.aws_access_key_id,
-    secret_access_key: Rails.application.credentials.aws_secret_access_key,
-    region: 'us-west-2'
-  }
-end
-```
-
-Then, create and run a migration to add the `image_uuid` and `image_processing` columns to your model:
-
-```ruby
-class AddImageToPost < ActiveRecord::Migration[5.2]
-  def change
-    add_column :posts, :image_uuid, :string
-    add_column :posts, :image_processing, :boolean, default: false, null: false
-  end
-end
-```
-
-Next, add the class macro to the model:
-
-```ruby
-class Post < ApplicationRecord
-  has_image thumb: '100x100>'
-end
-```
-
-Finally, add the ability to update the `image_url` attribute from the controller:
+Configure `Paperclip` as you normally would, according to their docs. Then, add the ability to update the `*_url` attribute from the controller, where the `*` is the name of the attachment that you specified in your model's call to `has_attached_file`.
 
 ```ruby
 class PostsController < ApplicationController
