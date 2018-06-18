@@ -22,7 +22,17 @@ Or install it yourself as:
 
 ## Usage
 
-Configure `Paperclip` as you normally would, according to their docs. Then, add the ability to update the `*_url` attribute from the controller, where the `*` is the name of the attachment that you specified in your model's call to `has_attached_file`.
+Configure `Paperclip` as you normally would, according to their docs. Then, add an additional `*_processing` boolean field to the model for which you want to process attachments in the background, where `*` is the name of the attachment that you specified in your model's call to `has_attached_file`.
+
+```ruby
+class AddImageProcessingToPosts < ActiveRecord::Migration[5.2]
+  def change
+    add_column :posts, :image_processing, :boolean
+  end
+end
+```
+
+Then, add the ability to update the `*_url` attribute from the controller.
 
 ```ruby
 class PostsController < ApplicationController
