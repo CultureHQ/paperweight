@@ -45,6 +45,8 @@ class PostsController < ApplicationController
 end
 ```
 
+From now on, updating this attribute will queue a job in the background to update the image later.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
