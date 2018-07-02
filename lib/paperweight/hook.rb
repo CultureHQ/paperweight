@@ -45,6 +45,7 @@ module Paperweight
       define_method(name.url_eq) do |value|
         instance_variable_set(name.url_attr, value)
         self[name.processing] = value ? true : false
+        self.updated_at = Time.now if value
       end
     end
 
