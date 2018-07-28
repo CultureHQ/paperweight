@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     paperweight (0.1.1)
-      paperclip (~> 6.0)
+      paperclip (~> 6.1)
       rails (~> 5.2)
 
 GEM
@@ -79,20 +79,20 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     nio4r (2.3.1)
-    nokogiri (1.8.3)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
-    paperclip (6.0.0)
+    paperclip (6.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     parallel (1.12.1)
-    parser (2.5.1.0)
+    parser (2.5.1.2)
       ast (~> 2.4.0)
     powerpack (0.1.2)
     rack (2.0.5)
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
       actioncable (= 5.2.0)
@@ -120,10 +120,10 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     rake (12.3.1)
-    rubocop (0.57.2)
+    rubocop (0.58.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.5)
+      parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
@@ -161,7 +161,7 @@ DEPENDENCIES
   minitest (~> 5.11)
   paperweight!
   rake (~> 12.0)
-  rubocop (~> 0.57)
+  rubocop (~> 0.58)
   simplecov (~> 0.16)
   sqlite3 (~> 1.3)
 
