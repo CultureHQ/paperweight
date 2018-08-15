@@ -7,8 +7,8 @@ class PostProcessJobTest < ActiveJob::TestCase
     post = Post.first
 
     with_file_server do |address|
-      header_url = "#{address}/large.png"
-      Paperweight::PostProcessJob.perform_now(post, :header, header_url)
+      post.update(header_url: "#{address}/large.png")
+      Paperweight::PostProcessJob.perform_now(post, :header)
     end
 
     assert_nil post.reload.header_processing

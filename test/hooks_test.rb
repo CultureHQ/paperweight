@@ -38,24 +38,31 @@ class HooksTest < ActiveJob::TestCase
       header_url = "#{address}/large.png"
 
       post.update!(header_url: header_url)
-      assert_intermediate_url header_url, post
+      assert_intermediate_url header_url, post.reload.header
 
       flush_enqueued_jobs
-      assert_processed_url post
+      assert_processed_url post.reload.header
     end
+  end
+
+  def test_still_functions_without_processing_column
+    comment = Comment.first
+    filepath = File.expand_path(File.join('files', 'small.png'), __dir__)
+
+    File.open(filepath, 'r') { |file| comment.update!(image: file) }
+
+    assert_processed_url comment.reload.image
   end
 
   private
 
-  def assert_intermediate_url(header_url, post)
-    header = post.reload.header
-
-    assert_equal header_url, header.url(:thumb)
-    assert_equal header_url, header.url(:medium)
+  def assert_intermediate_url(expected, attachment)
+    assert_equal expected, attachment.url(:thumb)
+    assert_equal expected, attachment.url(:medium)
   end
 
-  def assert_processed_url(post)
-    thumb_url = post.reload.header.url(:thumb)
+  def assert_processed_url(attachment)
+    thumb_url = attachment.url(:thumb)
 
     assert thumb_url.starts_with?('/system/')
     assert_includes thumb_url, '/thumb/'

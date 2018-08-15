@@ -18,6 +18,10 @@ module Paperweight
           :"#{name}_processing"
         end
 
+        def updated_at
+          :"#{name}_updated_at"
+        end
+
         def url
           :"#{name}_url"
         end
@@ -47,14 +51,16 @@ module Paperweight
         define_method(name.url_eq) do |value|
           instance_variable_set(name.url_attr, value)
           self[name.processing] = value
-          self.updated_at = Time.now if value
+
+          return unless value
+          self[name.updated_at] = Time.now
+          self.updated_at = Time.now
         end
       end
 
       def define_paperweight_after_commit_for(name)
         after_commit if: name.url do
-          attachment_url = public_send(name.url)
-          PostProcessJob.perform_later(self, name.name.to_s, attachment_url)
+          PostProcessJob.perform_later(self, name.name.to_s)
         end
       end
     end
@@ -63,7 +69,14 @@ module Paperweight
     # check the `image_processing` field and use that if it's still processing.
     module AttachmentHook
       def url(*)
-        instance.public_send(:"#{name}_processing") || super
+        processing_url || super
+      end
+
+      private
+
+      def processing_url
+        attribute = :"#{name}_processing"
+        instance.has_attribute?(attribute) && instance.public_send(attribute)
       end
     end
   end

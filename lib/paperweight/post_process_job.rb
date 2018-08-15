@@ -7,9 +7,11 @@ module Paperweight
 
     discard_on ActiveJob::DeserializationError
 
-    def perform(model, name, url)
-      tempfile = Download.new.download(url)
-      model.update!(name => tempfile, :"#{name}_processing" => nil)
+    def perform(model, name)
+      processing = :"#{name}_processing"
+
+      tempfile = Download.new.download(model.public_send(processing))
+      model.update!(name => tempfile, processing => nil)
     end
   end
 end

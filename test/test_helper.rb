@@ -33,11 +33,13 @@ Paperclip.logger.level = Logger::FATAL
 
 ActiveRecord::Schema.define do
   create_table :posts, force: true do |t|
-    t.string :header_file_name
-    t.string :header_content_type
-    t.integer :header_file_size
-    t.datetime :header_updated_at
+    t.attachment :header
     t.string :header_processing
+    t.timestamps
+  end
+
+  create_table :comments, force: true do |t|
+    t.attachment :image
     t.timestamps
   end
 end
@@ -53,6 +55,13 @@ class Post < ActiveRecord::Base
     size: { in: 0..10.megabytes },
     content_type: { content_type: %r{\Aimage/.*\z} }
   )
+
+  create!
+end
+
+class Comment < ActiveRecord::Base
+  has_attached_file :image, styles: { thumb: '100x100>' }
+  validates_attachment :image, content_type: { content_type: %r{\Aimage/.*\z} }
 
   create!
 end
