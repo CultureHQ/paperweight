@@ -32,13 +32,11 @@ class DownloadTest < ActiveSupport::TestCase
   end
 
   def with_tiny_max_size
-    previous = Paperweight::Download::MAX_SIZE
-    Paperweight::Download.send(:remove_const, :MAX_SIZE)
-    Paperweight::Download.const_set(:MAX_SIZE, 1)
+    previous = Paperweight.config.max_size
+    Paperweight.configure { |config| config.max_size = 1 }
 
     yield
   ensure
-    Paperweight::Download.send(:remove_const, :MAX_SIZE)
-    Paperweight::Download.const_set(:MAX_SIZE, previous)
+    Paperweight.configure { |config| config.max_size = previous }
   end
 end

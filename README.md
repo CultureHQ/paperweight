@@ -57,6 +57,20 @@ end
 
 From now on, updating this attribute will queue a job in the background to update the image later.
 
+### Configuration
+
+You can provide additional configuration options through the `Paperweight.configure` method, as in:
+
+```ruby
+Paperweight.configure do |config|
+  config.max_size = 20 * 1024 * 1024
+end
+```
+
+The current configuration options include:
+
+* `max_size` - defaults to 10 MB
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

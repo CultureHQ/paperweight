@@ -13,8 +13,6 @@ module Paperweight
       Error                 # our errors
     ].freeze
 
-    MAX_SIZE = 10 * 1024 * 1024
-
     def download(url)
       # Finally we download the file. Here we mustn't use simple #open that
       # open-uri overrides, because this is vulnerable to shell execution
@@ -52,6 +50,8 @@ module Paperweight
     end
 
     def open_options
+      max_size = Paperweight.config.max_size
+
       {}.tap do |options|
         # It was shown that in a random sample approximately 20% of websites
         # will simply refuse a request which doesn't have a valid User-Agent.
@@ -61,8 +61,8 @@ module Paperweight
         # will call this block as soon as it gets the "Content-Length" header,
         # which means that we can bail out before we download the file.
         options[:content_length_proc] = lambda { |size|
-          if size && size > MAX_SIZE
-            raise Error, "file is too big (max is #{MAX_SIZE})"
+          if size && size > max_size
+            raise Error, "file is too big (max is #{max_size})"
           end
         }
       end

@@ -7,6 +7,7 @@ require 'rails'
 
 require 'active_job'
 
+require 'paperweight/configuration'
 require 'paperweight/download'
 require 'paperweight/hook'
 require 'paperweight/post_process_job'
