@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paperweight (1.0.0)
+    paperweight (1.0.1)
       paperclip (>= 5)
       rails (>= 5)
 
