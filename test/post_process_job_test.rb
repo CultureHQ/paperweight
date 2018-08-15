@@ -11,7 +11,7 @@ class PostProcessJobTest < ActiveJob::TestCase
       Paperweight::PostProcessJob.perform_now(post, :image, image_url)
     end
 
-    refute post.reload.image_processing?
+    assert_nil post.reload.image_processing
     assert post.image.exists?
   end
 end

@@ -9,8 +9,9 @@ require 'active_job'
 
 require 'paperweight/configuration'
 require 'paperweight/download'
-require 'paperweight/hook'
+require 'paperweight/hooks'
 require 'paperweight/post_process_job'
 require 'paperweight/version'
 
-Paperclip::ClassMethods.prepend(Paperweight::Hook)
+Paperclip::ClassMethods.prepend(Paperweight::Hooks::RecordHook)
+Paperclip::Attachment.prepend(Paperweight::Hooks::AttachmentHook)
