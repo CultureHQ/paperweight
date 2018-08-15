@@ -6,9 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.0.0] - 2018-08-15
+### Changed
+- Changed the expected column type of `#*_processing` from a boolean to string. This allows us to use it to store the URL from the `#*_url=` method so that it can be used in the meantime before the job finishes processing.
+
 ## [0.2.0] - 2018-08-15
 ### Added
 - The ability to configure the `max_size` value (the maximum download size) using the `Paperweight.configure` method.
 
 [Unreleased]: https://github.com/CultureHQ/client/compare/v0.2.0...HEAD
+[v1.0.0]: https://github.com/CultureHQ/client/compare/v0.2.0...v1.0.0
 [v0.2.0]: https://github.com/CultureHQ/client/compare/v0.1.2...v0.2.0
