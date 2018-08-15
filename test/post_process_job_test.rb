@@ -7,11 +7,11 @@ class PostProcessJobTest < ActiveJob::TestCase
     post = Post.first
 
     with_file_server do |address|
-      image_url = "#{address}/large.png"
-      Paperweight::PostProcessJob.perform_now(post, :image, image_url)
+      header_url = "#{address}/large.png"
+      Paperweight::PostProcessJob.perform_now(post, :header, header_url)
     end
 
-    assert_nil post.reload.image_processing
-    assert post.image.exists?
+    assert_nil post.reload.header_processing
+    assert post.header.exists?
   end
 end

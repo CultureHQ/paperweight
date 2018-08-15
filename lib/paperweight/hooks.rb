@@ -63,7 +63,7 @@ module Paperweight
     # check the `image_processing` field and use that if it's still processing.
     module AttachmentHook
       def url(*)
-        instance.image_processing || super
+        instance.public_send(:"#{name}_processing") || super
       end
     end
   end
