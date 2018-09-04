@@ -30,6 +30,10 @@ module Paperweight
       raise Error, "download failed (#{url}): #{message}"
     end
 
+    def self.download(url)
+      new.download(url)
+    end
+
     private
 
     # open-uri will return a StringIO instead of a Tempfile if the filesize

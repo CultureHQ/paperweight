@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.0.2] - 2018-09-04
+### Changed
+- Handle the case where an image has been removed or cleared before the post process job executes. In this case the job should bail out before attempting to download the file.
+
 ## [1.0.1] - 2018-08-15
 ### Changed
 - Fixed `paperweight` to not break `paperclip` functionality when a record does not contain the `#*_processing` column.

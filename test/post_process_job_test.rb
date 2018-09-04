@@ -14,4 +14,13 @@ class PostProcessJobTest < ActiveJob::TestCase
     assert_nil post.reload.header_processing
     assert post.header.exists?
   end
+
+  def test_perform_with_no_processing
+    post = Post.first
+    assert_nil post.header_processing
+
+    assert_nothing_raised do
+      Paperweight::PostProcessJob.perform_now(post, :header)
+    end
+  end
 end

@@ -9,9 +9,10 @@ module Paperweight
 
     def perform(model, name)
       processing = :"#{name}_processing"
+      image_url = model.public_send(processing)
 
-      tempfile = Download.new.download(model.public_send(processing))
-      model.update!(name => tempfile, processing => nil)
+      return unless image_url
+      model.update!(name => Download.download(image_url), processing => nil)
     end
   end
 end
