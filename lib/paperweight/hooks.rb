@@ -53,6 +53,7 @@ module Paperweight
           self[name.processing] = value
 
           return unless value
+
           self[name.updated_at] = Time.now
           self.updated_at = Time.now
         end

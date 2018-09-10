@@ -12,6 +12,7 @@ module Paperweight
       image_url = model.public_send(processing)
 
       return unless image_url
+
       model.update!(name => Download.download(image_url), processing => nil)
     end
   end
