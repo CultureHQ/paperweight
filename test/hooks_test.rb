@@ -70,8 +70,7 @@ class HooksTest < ActiveJob::TestCase
 
   def flush_enqueued_jobs
     enqueued_jobs.map do |payload|
-      args = ActiveJob::Arguments.deserialize(payload[:args])
-      instantiate_job(payload.merge(args: args)).perform_now
+      instantiate_job(payload).perform_now
     end
   end
 end
