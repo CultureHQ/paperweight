@@ -8,6 +8,12 @@ action "Install" {
   args = "install"
 }
 
+action "Audit" {
+  needs = "Install"
+  uses = "docker://culturehq/actions-bundler:latest"
+  args = "audit"
+}
+
 action "Lint" {
   needs = "Install"
   uses = "docker://culturehq/actions-bundler:latest"
@@ -21,7 +27,7 @@ action "Test" {
 }
 
 action "Tag" {
-  needs = ["Lint", "Test"]
+  needs = ["Audit", "Lint", "Test"]
   uses = "actions/bin/filter@master"
   args = "tag"
 }
