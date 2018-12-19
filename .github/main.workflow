@@ -11,7 +11,7 @@ action "Install" {
 action "Set Path" {
   needs = "Install"
   uses = "actions/bin/sh@master"
-  args = "export PATH=\"$PWD/vendor/bundle:$PATH\""
+  runs = "export PATH=\"$PWD/vendor/bundle:$PATH\""
 }
 
 action "Lint" {
