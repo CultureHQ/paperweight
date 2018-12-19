@@ -11,7 +11,7 @@ action "Install" {
 action "Audit" {
   needs = "Install"
   uses = "docker://culturehq/actions-bundler:latest"
-  args = "audit"
+  args = "exec bundle audit"
 }
 
 action "Lint" {
