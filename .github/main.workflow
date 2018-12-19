@@ -3,9 +3,15 @@ workflow "Main" {
   resolves = "Publish"
 }
 
-action "Install" {
+action "Set Path" {
   uses = "docker://culturehq/actions-bundler:latest"
-  args = "install --path vendor/bundle"
+  args = "config path vendor/bundle"
+}
+
+action "Install" {
+  needs = "Set Path"
+  uses = "docker://culturehq/actions-bundler:latest"
+  args = "install"
 }
 
 action "Lint" {
