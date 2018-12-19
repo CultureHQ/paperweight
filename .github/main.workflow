@@ -5,25 +5,28 @@ workflow "Main" {
 
 action "Install" {
   uses = "docker://culturehq/actions-bundler:latest"
-  args = "install --path vendor/bundle"
-}
-
-action "Set Path" {
-  needs = "Install"
-  uses = "actions/bin/sh@master"
-  runs = "export PATH=\"$PWD/vendor/bundle:$PATH\""
+  args = "install"
+  env = {
+    BUNDLE_PATH = "vendor/bundle"
+  }
 }
 
 action "Lint" {
-  needs = "Set Path"
+  needs = "Install"
   uses = "docker://culturehq/actions-bundler:latest"
   args = "exec rubocop --parallel"
+  env = {
+    BUNDLE_PATH = "vendor/bundle"
+  }
 }
 
 action "Test" {
-  needs = "Set Path"
+  needs = "Install"
   uses = "docker://culturehq/actions-bundler:latest"
   args = "exec rake test"
+  env = {
+    BUNDLE_PATH = "vendor/bundle"
+  }
 }
 
 action "Tag" {
@@ -37,4 +40,7 @@ action "Publish" {
   uses = "docker://culturehq/actions-bundler:latest"
   args = "build release:rubygem_push"
   secrets = ["BUNDLE_GEM__PUSH_KEY"]
+  env = {
+    BUNDLE_PATH = "vendor/bundle"
+  }
 }
