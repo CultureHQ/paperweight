@@ -3,25 +3,25 @@ workflow "Main" {
   resolves = "Publish"
 }
 
-action "Set Path" {
+action "Install" {
   uses = "docker://culturehq/actions-bundler:latest"
-  args = "config path vendor/bundle"
+  args = "install --path vendor/bundle"
 }
 
-action "Install" {
-  needs = "Set Path"
-  uses = "docker://culturehq/actions-bundler:latest"
-  args = "install"
+action "Set Path" {
+  needs = "Install"
+  uses = "actions/bin/sh@master"
+  args = "export PATH=\"$PWD/vendor/bundle:$PATH\""
 }
 
 action "Lint" {
-  needs = "Install"
+  needs = "Set Path"
   uses = "docker://culturehq/actions-bundler:latest"
   args = "exec rubocop --parallel"
 }
 
 action "Test" {
-  needs = "Install"
+  needs = "Set Path"
   uses = "docker://culturehq/actions-bundler:latest"
   args = "exec rake test"
 }
