@@ -38,3 +38,8 @@ action "Publish" {
   args = "build release:rubygem_push"
   secrets = ["BUNDLE_GEM__PUSH_KEY"]
 }
+
+workflow "Other" {
+  on = "push"
+  resolves = "Publish"
+}
