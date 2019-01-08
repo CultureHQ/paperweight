@@ -23,6 +23,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 - The ability to configure the `max_size` value (the maximum download size) using the `Paperweight.configure` method.
 
-[Unreleased]: https://github.com/CultureHQ/client/compare/v0.2.0...HEAD
-[v1.0.0]: https://github.com/CultureHQ/client/compare/v0.2.0...v1.0.0
-[v0.2.0]: https://github.com/CultureHQ/client/compare/v0.1.2...v0.2.0
+[Unreleased]: https://github.com/CultureHQ/paperweight/compare/1.0.2...HEAD
+[1.0.2]: https://github.com/CultureHQ/paperweight/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/CultureHQ/paperweight/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/CultureHQ/paperweight/compare/v0.2.0...v1.0.0
+[0.2.0]: https://github.com/CultureHQ/paperweight/compare/v0.1.2...v0.2.0
