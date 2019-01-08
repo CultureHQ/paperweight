@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.1.0] - 2019-01-08
+### Added
+- Support the `after_download` option on `paperweight`-enabled attachments that takes a callable and calls it when the post process job has completed.
+
 ## [1.0.2] - 2018-09-04
 ### Changed
 - Handle the case where an image has been removed or cleared before the post process job executes. In this case the job should bail out before attempting to download the file.
@@ -23,7 +27,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 - The ability to configure the `max_size` value (the maximum download size) using the `Paperweight.configure` method.
 
-[Unreleased]: https://github.com/CultureHQ/paperweight/compare/1.0.2...HEAD
+[Unreleased]: https://github.com/CultureHQ/paperweight/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/CultureHQ/paperweight/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/CultureHQ/paperweight/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/CultureHQ/paperweight/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/CultureHQ/paperweight/compare/v0.2.0...v1.0.0

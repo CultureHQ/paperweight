@@ -6,36 +6,9 @@ module Paperweight
     # Overrides the `has_attached_file` method from `paperclip` so that
     # `paperweight` can add extras when the macro is called.
     module RecordHook
-      # Converts a parent name to its respective component child names.
-      class AttachmentName
-        attr_reader :name
-
-        def initialize(name)
-          @name = name
-        end
-
-        def processing
-          :"#{name}_processing"
-        end
-
-        def updated_at
-          :"#{name}_updated_at"
-        end
-
-        def url
-          :"#{name}_url"
-        end
-
-        def url_eq
-          :"#{name}_url="
-        end
-
-        def url_attr
-          :"@#{name}_url"
-        end
-      end
-
-      def has_attached_file(name, *) # rubocop:disable Naming/PredicateName
+      # rubocop:disable Naming/PredicateName
+      def has_attached_file(name, options = {})
+        after_download = options.delete(:after_download)
         super
 
         name = AttachmentName.new(name)
@@ -43,7 +16,9 @@ module Paperweight
 
         define_paperweight_setter_for(name)
         define_paperweight_after_commit_for(name)
+        define_method(name.after_download, &after_download) if after_download
       end
+      # rubocop:enable Naming/PredicateName
 
       private
 

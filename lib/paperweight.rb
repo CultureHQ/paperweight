@@ -7,6 +7,7 @@ require 'rails'
 
 require 'active_job'
 
+require 'paperweight/attachment_name'
 require 'paperweight/configuration'
 require 'paperweight/download'
 require 'paperweight/hooks'

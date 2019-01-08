@@ -13,6 +13,7 @@ class PostProcessJobTest < ActiveJob::TestCase
 
     assert_nil post.reload.header_processing
     assert post.header.exists?
+    assert post.is_downloaded
   end
 
   def test_perform_with_no_processing

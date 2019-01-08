@@ -45,9 +45,12 @@ ActiveRecord::Schema.define do
 end
 
 class Post < ActiveRecord::Base
+  attr_reader :is_downloaded
+
   has_attached_file(
     :header,
-    styles: { thumb: '100x100>', medium: '500x500>', original: '' }
+    styles: { thumb: '100x100>', medium: '500x500>', original: '' },
+    after_download: -> { @is_downloaded = true }
   )
 
   validates_attachment(
