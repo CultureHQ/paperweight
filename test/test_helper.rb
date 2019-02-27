@@ -30,6 +30,9 @@ ActiveRecord::Base.establish_connection(
 )
 
 Paperclip.logger.level = Logger::FATAL
+Paperweight.configure do |config|
+  config.download_attempts = 3
+end
 
 ActiveRecord::Schema.define do
   create_table :posts, force: true do |t|

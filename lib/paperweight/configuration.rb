@@ -4,9 +4,10 @@
 module Paperweight
   # Allows configuring certain attributes about how to process attachments.
   class Configuration
-    attr_accessor :max_size
+    attr_accessor :download_attempts, :max_size
 
     def initialize
+      @download_attempts = 1
       @max_size = 10 * 1024 * 1024
     end
   end
