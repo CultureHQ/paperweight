@@ -6,6 +6,7 @@ module Paperweight
     Error = Class.new(StandardError)
 
     DOWNLOAD_ERRORS = [
+      Errno::ECONNREFUSED,  # invalid url
       SocketError,          # domain not found
       OpenURI::HTTPError,   # response status 4xx or 5xx
       RuntimeError,         # redirection errors (e.g. redirection loop)

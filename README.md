@@ -65,12 +65,14 @@ You can provide additional configuration options through the `Paperweight.config
 
 ```ruby
 Paperweight.configure do |config|
+  config.download_attempts = 10
   config.max_size = 20 * 1024 * 1024
 end
 ```
 
 The current configuration options include:
 
+* `download_attempts` - defaults to 1
 * `max_size` - defaults to 10 MB
 
 ## Development

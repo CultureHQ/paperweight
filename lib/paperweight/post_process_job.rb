@@ -7,6 +7,12 @@ module Paperweight
 
     discard_on ActiveJob::DeserializationError
 
+    rescue_from Download::Error do |error|
+      raise error if executions >= Paperweight.config.download_attempts
+
+      retry_job(wait: (executions**4) + 2)
+    end
+
     def perform(model, name)
       name = AttachmentName.new(name)
       image_url = model.public_send(name.processing)
