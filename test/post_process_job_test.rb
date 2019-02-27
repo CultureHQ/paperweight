@@ -47,8 +47,6 @@ class PostProcessJobTest < ActiveJob::TestCase
     Paperweight::Download.clear
 
     post = Post.first
-    assert_nil post.header_processing
-
     post.update(header_url: 'http://localhost:8080/foobar.png')
 
     assert_raises Paperweight::Download::Error do
