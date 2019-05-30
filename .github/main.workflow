@@ -3,13 +3,7 @@ workflow "Main" {
   resolves = "Publish"
 }
 
-action "Bundler" {
-  uses = "docker://culturehq/actions-bundler:latest"
-  runs = "gem install bundler"
-}
-
 action "Install" {
-  needs = "Bundler"
   uses = "docker://culturehq/actions-bundler:latest"
   args = "install"
 }
