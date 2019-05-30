@@ -7,6 +7,7 @@ module Paperweight
 
     DOWNLOAD_ERRORS = [
       Errno::ECONNREFUSED,  # invalid url
+      Errno::EADDRNOTAVAIL, # cannot connect
       SocketError,          # domain not found
       OpenURI::HTTPError,   # response status 4xx or 5xx
       RuntimeError,         # redirection errors (e.g. redirection loop)
