@@ -2,3 +2,6 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   TargetRubyVersion: 2.6
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false

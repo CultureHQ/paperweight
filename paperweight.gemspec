@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Kevin Deisz']
   spec.email         = ['kevin.deisz@gmail.com']
 
-  spec.summary       = 'An opinionated Paperclip.'
+  spec.summary       = 'Handles Paperclip attachments in the background'
   spec.homepage      = 'https://github.com/CultureHQ/paperweight'
   spec.license       = 'MIT'
 
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler-audit', '~> 0.6'
   spec.add_development_dependency 'minitest', '~> 5.11'
   spec.add_development_dependency 'rake', '~> 12.3'
-  spec.add_development_dependency 'rubocop', '~> 0.65'
+  spec.add_development_dependency 'rubocop', '~> 0.71'
   spec.add_development_dependency 'simplecov', '~> 0.16'
   spec.add_development_dependency 'sqlite3', '= 1.4.1'
 end
