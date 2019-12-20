@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rubocop', '~> 0.71'
   spec.add_development_dependency 'simplecov', '~> 0.16'
-  spec.add_development_dependency 'sqlite3', '= 1.4.1'
+  spec.add_development_dependency 'sqlite3', '= 1.4.2'
 end
