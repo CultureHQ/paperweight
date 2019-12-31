@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.2.1] - 2019-12-31
+### Changed
+- Fix up Ruby 2.7 warnings.
+
 ## [1.2.0] - 2019-02-27
 ### Added
 - Support a `download_attempts` configuration option for retrying the download. Currently defaults to 1 to maintain backwards compatability.
@@ -31,7 +35,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 - The ability to configure the `max_size` value (the maximum download size) using the `Paperweight.configure` method.
 
-[Unreleased]: https://github.com/CultureHQ/paperweight/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/CultureHQ/paperweight/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/CultureHQ/paperweight/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/CultureHQ/paperweight/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/CultureHQ/paperweight/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/CultureHQ/paperweight/compare/v1.0.1...v1.0.2

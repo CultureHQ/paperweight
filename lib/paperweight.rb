@@ -3,8 +3,21 @@
 require 'open-uri'
 require 'net/http'
 require 'paperclip'
-require 'rails'
+require 'uri'
 
+module Paperclip
+  class UrlGenerator
+    # We're overriding this module inside of UrlGenerator in order to get rid
+    # of the warning that came in in Ruby 2.7.
+    module URI
+      def self.escape(url)
+        ::URI::DEFAULT_PARSER.escape(url)
+      end
+    end
+  end
+end
+
+require 'rails'
 require 'active_job'
 
 require 'paperweight/attachment_name'
