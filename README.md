@@ -1,6 +1,6 @@
 # Paperweight
 
-[![Build Status](https://github.com/CultureHQ/paperweight/workflows/Push/badge.svg)](https://github.com/CultureHQ/paperweight/actions)
+[![Build Status](https://github.com/CultureHQ/paperweight/workflows/Main/badge.svg)](https://github.com/CultureHQ/paperweight/actions)
 [![Gem Version](https://img.shields.io/gem/v/paperweight.svg)](https://github.com/CultureHQ/paperweight)
 
 Handles `Paperclip` attachments on the backend in a delayed process.
