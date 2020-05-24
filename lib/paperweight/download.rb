@@ -21,12 +21,12 @@ module Paperweight
       # attack (if #open method detects a starting pipe (e.g. "| ls"), it will
       # execute the following as a shell command).
       normalize_download(uri_from(url).open(open_options))
-    rescue *DOWNLOAD_ERRORS => error
-      message = error.message
+    rescue *DOWNLOAD_ERRORS => e
+      message = e.message
 
       # open-uri will throw a RuntimeError when it detects a redirection loop,
       # so we want to reraise the exception if it was some other RuntimeError
-      raise if error.is_a?(RuntimeError) && message !~ /redirection/
+      raise if e.is_a?(RuntimeError) && message !~ /redirection/
 
       # We raise our unified Error class
       raise Error, "download failed (#{url}): #{message}"
